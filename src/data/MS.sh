@@ -9,7 +9,7 @@
 #Squad        : @@@Squad@@@
 #JOB          : @@@Job@@@
 #Description  : @@@Description@@@
-#Client       : @@@Adquirente@@@
+#Client       : @@@Client@@@
 #Date         : @@@Date@@@
 ########################################################################
 
