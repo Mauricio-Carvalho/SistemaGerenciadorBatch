@@ -4,20 +4,20 @@
 ########################################################################
 #DXC.technology
 #All rights reserved
-#Severity     : @@@Severity@@@
+#Severity     : #@@Severity@@#
 #Responsible  : Cards Utility
-#Squad        : @@@Squad@@@
-#JOB          : @@@Job@@@
-#Description  : @@@Description@@@
-#Client       : @@@Client@@@
-#Date         : @@@Date@@@
+#Squad        : #@@Squad@@#
+#JOB          : #@@Job@@#
+#Description  : #@@Description@@#
+#Client       : #@@Client@@#
+#Date         : #@@Date@@#
 ########################################################################
 
 set -x
 
 . /appl/CMS/cmsacqr/.profile.autosys
 
-TASK_TO_RUN=@@@ap@@@  # name of the .task here
+TASK_TO_RUN=#@@ap@@#  # name of the .task here
 
 # First check for mandatory variable CMSAP_ROOT
 if [ "$CMSAP_ROOT" = "" ]
@@ -142,9 +142,9 @@ then
     then
         echo 'Erasing message folder'
     fi
-    rm -f $CMSAP_ROOT/msg/O_@@@MS@@@
-    rm -f $CMSAP_ROOT/msg/O_@@@TS@@@
-    
+    rm -f $CMSAP_ROOT/msg/O_#@@MS@@#
+    rm -f $CMSAP_ROOT/msg/O_#@@TS0@@#
+
     f_writelog 'Erasing message folder'
 	echo $CMSAPA_BUSDATE > $CMSAP_ROOT/cfg/CMSAPF_IBD
     echo $PROGRAM_ID > $CMSAP_ROOT/cfg/CMSAPF_IAS
@@ -235,7 +235,7 @@ then
 fi
 f_writelog 'Setting table parameters'
 f_set_table_parameters $PROGRAM_ID
-    
+
 #---------------------------------------------
 # If necessary, move files here
 # mv <source files> <destination location>
