@@ -21,13 +21,22 @@ public class MainApp {
     /**
      * A main() so we can easily run these routing rules in our IDE
      */
+//    TODO: CRIAR UMA FLAG PARA DISPARAR UM EMAIL COM OS ITENS NO PACOTE SEMANAL, CRIANDO O DIRETORIO DE ENTREGA NO CMSDEV
 
     public static void main(String... args) throws Exception {
 
         Utils.printBannerDXC();
         LOGGER.info("Iniciando...");
         LOGGER.info("Versao do Batch: " + APP_VERSION);
-        propertiesFile();
+
+        Path path = new Path();//TODO: PASSAR O OBJ ENTREGA
+        path.setUser("dxca4815xk"); //TODO: USAR PARA CRIAR DIRETORIO NO CMSDEV
+        path.setTicket("CASU-777"); //TODO: USAR PARA CRIAR DIRETORIO NO CMSDEV
+        path.setBasePath("hom8"); //TODO: DIRETORIO NO AMBIENTE DE HOMOLOGAÇÃO H08
+        path.setBaseHomol(true); //TODO: USAR PARA CRIAR DIRETORIO NO AMBIENTE DE HOMOLOGAÇÃO H08
+        path.setBaseCmsdev(true); //TODO: USAR PARA CRIAR DIRETORIO NO AMBIENTE DE HOMOLOGAÇÃO H08
+
+        propertiesFile(path);
 
         ArrayList listMSG = new ArrayList();
         listMSG.add("TSACAPROJETOACQIOGERAEXEMPLOTEST1");
@@ -55,24 +64,23 @@ public class MainApp {
         try {
 
             switch (FileEnum.getByParameterName(ms.getType())) {
-
                 case MS:
-                    FileWrite.writeFileMS(ms);
+                    FileWrite.writeFileMS(ms, Path.getCmsapOutput());
                     break;
                 case AP:
-                    FileWrite.writeFileAP(ap);
+                    FileWrite.writeFileAP(ap, Path.getCfgOutput());
                     break;
                 case TS:
-                    FileWrite.writeFileTS(ts);
+                    FileWrite.writeFileTS(ts, Path.getCmsapOutput());
                     break;
                 case XS:
-                    FileWrite.writeFileXS(xs);
+                    FileWrite.writeFileXS(xs, Path.getCmsapOutput());
                     break;
                 case BASIC:
-                    FileWrite.writeFileBASIC(basic);
+                    FileWrite.writeFileBASIC(basic, Path.getCmsapOutput());
                     break;
                 case JIL:
-                    FileWrite.writeFileJIL(jil);
+                    FileWrite.writeFileJIL(jil, Path.getCmsapOutput());
                     break;
             }
 
@@ -84,17 +92,22 @@ public class MainApp {
 
     }
 
-    private static void propertiesFile() throws IOException {
+
+    private static void propertiesFile(Path path) throws IOException, SGBException {
         try (FileInputStream fileInputStream = new FileInputStream("src/main/resources/sgb-file-processor.properties")) {
             Properties prop = new Properties();
             prop.load(fileInputStream);
-            BatchProperties.setAmbiente(prop.getProperty("ambiente"));
-            BatchProperties.setOutputCmsap(prop.getProperty("dir.output.cmsap"));
-            BatchProperties.setOutputCfg(prop.getProperty("dir.output.cfg"));
-            BatchProperties.setOutputCmsacqr(prop.getProperty("dir.output.cmsacqr"));
-            BatchProperties.setOutputCmsissr(prop.getProperty("dir.output.cmsissr"));
 
-        } catch (IOException ex) {
+            FileEnum basePath = BaseEnum.getByParameterName(path.getBasePath());
+
+            Ambiente ambiente = new Ambiente(); //TODO: USAR PARA DISPONIBILIZAR NO CMSDEV OU HOML
+            ambiente.setCmsdevOutput(prop.getProperty("dir.output.cmsdev").replace("{0}", path.getUser() + "/" + path.getTicket()));
+            ambiente.setCmsapOutput(prop.getProperty("dir.output.cmsap").replace("{0}", basePath.toString()));
+            ambiente.setCfgOutput(prop.getProperty("dir.output.cfg").replace("{0}", basePath.toString()));
+            ambiente.setCmsacqrOutput(prop.getProperty("dir.output.cmsacqr").replace("{0}", basePath.toString()));
+            ambiente.setCmsissrOutput(prop.getProperty("dir.output.cmsissr").replace("{0}", basePath.toString()));
+
+        } catch (IOException | SGBException ex) {
             LOGGER.error("Falha ao ler arquivos properties");
             throw ex;
         }
