@@ -3,49 +3,44 @@ package br.com.dxc.cards.model;
 public class Ambiente {
 
 
-    private static String cmsdevOutput;
-    private static String cmsapOutput;
-    private static String cfgOutput;
-    private static String cmsacqrOutput;
-    private static String cmsissrOutput;
+    private String cmsdevOutput;
+    private String cmsapOutput;
+    private String cfgOutput;
+    private String cmsScriptOutput;
 
-    public static String getCmsdevOutput() {
+    public Ambiente() {
+
+    }
+
+    public String getCmsdevOutput() {
         return cmsdevOutput;
     }
 
-    public static void setCmsdevOutput(String cmsdevOutput) {
-        Ambiente.cmsdevOutput = cmsdevOutput;
+    public void setCmsdevOutput(String cmsdevOutput) {
+        this.cmsdevOutput = cmsdevOutput;
     }
 
-    public static String getCmsapOutput() {
+    public String getCmsapOutput() {
         return cmsapOutput;
     }
 
-    public static void setCmsapOutput(String cmsapOutput) {
-        Ambiente.cmsapOutput = cmsapOutput;
+    public void setCmsapOutput(String cmsapOutput) {
+        this.cmsapOutput = cmsapOutput;
     }
 
-    public static String getCfgOutput() {
+    public String getCfgOutput() {
         return cfgOutput;
     }
 
-    public static void setCfgOutput(String cfgOutput) {
-        Ambiente.cfgOutput = cfgOutput;
+    public void setCfgOutput(String cfgOutput) {
+        this.cfgOutput = cfgOutput;
     }
 
-    public static String getCmsacqrOutput() {
-        return cmsacqrOutput;
+    public String getCmsScriptOutput() {
+        return cmsScriptOutput;
     }
 
-    public static void setCmsacqrOutput(String cmsacqrOutput) {
-        Ambiente.cmsacqrOutput = cmsacqrOutput;
-    }
-
-    public static String getCmsissrOutput() {
-        return cmsissrOutput;
-    }
-
-    public static void setCmsissrOutput(String cmsissrOutput) {
-        Ambiente.cmsissrOutput = cmsissrOutput;
+    public void setCmsScriptOutput(String cmsScriptOutput) {
+        this.cmsScriptOutput = cmsScriptOutput;
     }
 }

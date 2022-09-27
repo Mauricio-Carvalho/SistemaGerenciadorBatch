@@ -14,7 +14,7 @@ public class FileWrite {
 
     private static final Logger LOGGER = LogManager.getLogger(FileWrite.class);
 
-    public static void writeFileMS(MS ms, String path) throws IOException {
+    public static void writeFileMS(MS ms, Path path) throws IOException {
         File templateScript = new File("src/data/MS.sh");
         String scriptFile = "";
 
@@ -49,7 +49,7 @@ public class FileWrite {
             sc.close();
 
             String newScript = sub.replace(scriptFile);
-            basePathGenerate(newScript, ms.getName(), path);
+            basePathGenerate(newScript, ms.getName(), ms.getType(), path);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -71,20 +71,28 @@ public class FileWrite {
     public static void writeFileJIL(JIL jil, String path) {
     }
 
-    private static void basePathGenerate(String newScript, String name, String path) throws IOException {
+    private static void basePathGenerate(String newScript, String name, String type, Path path) throws IOException {
 
-        if (Path.isBaseCmsdev()) {
-            fileGenerate(newScript, name, path);
+        if (path.isBaseCmsdev()) {
+            fileGenerate(newScript, name, path.getAmbiente().getCmsdevOutput());
         }
 
-        if (Path.isBaseHomol()) {
-            fileGenerate(newScript, name, path);
+        if (path.isBaseHomol()) {
+            if (type.equals("MS") || type.equals("TS") || type.equals("XS")) {
+                fileGenerate(newScript, name, path.getAmbiente().getCmsapOutput());
+            }
+            else if (type.equals("ap")){
+                fileGenerate(newScript, name, path.getAmbiente().getCmsapOutput());
+            }else {
+                fileGenerate(newScript, name, path.getAmbiente().getCmsScriptOutput());
+            }
         }
 
     }
 
     private static void fileGenerate(String newScript, String name, String path) throws IOException {
-        File fileGenerate = new File(path + name.replaceAll("\\s", "") + ".sh");
+        File fileGenerate = new File("C:\\GitHub\\SistemaGerenciadorBatch\\src\\data\\" + name.replaceAll("\\s", "") + ".sh"); //TODO: RODAR NA MAQUINA
+//        File fileGenerate = new File(path + name.replaceAll("\\s", "") + ".sh");
         if (!fileGenerate.exists()) {
             fileGenerate.createNewFile();
         }

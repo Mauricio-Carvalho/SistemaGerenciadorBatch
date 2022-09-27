@@ -2,58 +2,61 @@ package br.com.dxc.cards.model;
 
 public class Path extends Ambiente{
 
-    private static String user;
-    private static String ticket;
-    private static String basePath;
-    private static boolean baseHomol;
-    private static boolean baseCmsdev;
-    private static Ambiente ambiente;
+    public String user;
+    public String ticket;
+    public String basePath;
+    public boolean baseHomol;
+    public boolean baseCmsdev;
+    public Ambiente ambiente;
 
-    public static String getUser() {
+    public Path() {
+    }
+
+    public String getUser() {
         return user;
     }
 
-    public static void setUser(String user) {
-        Path.user = user;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public static String getTicket() {
+    public String getTicket() {
         return ticket;
     }
 
-    public static void setTicket(String ticket) {
-        Path.ticket = ticket;
+    public void setTicket(String ticket) {
+        this.ticket = ticket;
     }
 
-    public static String getBasePath() {
+    public String getBasePath() {
         return basePath;
     }
 
-    public static void setBasePath(String basePath) {
-        Path.basePath = basePath;
+    public void setBasePath(String basePath) {
+        this.basePath = basePath;
     }
 
-    public static boolean isBaseHomol() {
+    public boolean isBaseHomol() {
         return baseHomol;
     }
 
-    public static void setBaseHomol(boolean baseHomol) {
-        Path.baseHomol = baseHomol;
+    public void setBaseHomol(boolean baseHomol) {
+        this.baseHomol = baseHomol;
     }
 
-    public static boolean isBaseCmsdev() {
+    public boolean isBaseCmsdev() {
         return baseCmsdev;
     }
 
-    public static void setBaseCmsdev(boolean baseCmsdev) {
-        Path.baseCmsdev = baseCmsdev;
+    public void setBaseCmsdev(boolean baseCmsdev) {
+        this.baseCmsdev = baseCmsdev;
     }
 
-    public static Ambiente getAmbiente() {
+    public Ambiente getAmbiente() {
         return ambiente;
     }
 
-    public static void setAmbiente(Ambiente ambiente) {
-        Path.ambiente = ambiente;
+    public void setAmbiente(Ambiente ambiente) {
+        this.ambiente = ambiente;
     }
 }
