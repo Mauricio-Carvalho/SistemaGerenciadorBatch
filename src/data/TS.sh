@@ -5,7 +5,7 @@
 #DXC.technology
 #All rights reserved
 #Severity     : @@@Severity@@@
-#Responsible  : Cards Utility -
+#Responsible  : Cards Utility
 #Squad        : @@@Squad@@@
 #JOB          : @@@Job@@@
 #Description  : @@@Description@@@
@@ -69,7 +69,7 @@ echo 'Command  : ' $PROGRAM_TO_RUN
 
 echo ''
 echo '======================================================================='
-echo 'DXC Technology. (c) 2019'
+echo '© DXC Technology Company #@@Date@@#'
 echo 'Program name: ' $PROGRAM_ID
 echo 'Start Time  : ' $START_TIME
 echo '======================================================================='
@@ -170,7 +170,7 @@ else
         
         PER_START=`f_now`
         # Call the corresponding program
-        /app/jvm/jdk8/bin/java -jar $CMSAP_BIN/$PROGRAM_TO_RUN $ADQUIRENTE $MODELO $PROPERTIES >> $CMSAP_OUTPUTLOG 2>&1
+        #@@PathVersionJava@@# #@@MaxMemoryJava@@# $CMSAP_BIN/$PROGRAM_TO_RUN $ADQUIRENTE $MODELO $PROPERTIES >> $CMSAP_OUTPUTLOG 2>&1
         END_STATUS=$?
         
         # Check final status

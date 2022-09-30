@@ -4,22 +4,21 @@
 ########################################################################
 #DXC.technology
 #All rights reserved
-#Severity     : @@@Severity@@@
+#Severity     : #@@Severity@@#
 #Responsible  : Cards Utility
-#Squad        : @@@Squad@@@
-#JOB          : @@@Job@@@
-#Description  : @@@Description@@@
-#Client       : @@@Client@@@
-#Date         : @@@Date@@@
+#Squad        : #@@Squad@@#
+#JOB          : #@@Job@@#
+#Description  : #@@Description@@#
+#Client       : #@@Client@@#
+#Date         : #@@Date@@#
 ########################################################################
 
 set -x
 
-# Put the name of the program and arguments here
-PROGRAM_TO_RUN=@@@bin@@@
-ADQUIRNTE=@@@Client@@@
-MODELO="53"
-PROPERTIES="portal-adquirente-batch.cfg"
+PROGRAM_TO_RUN="#@@PathVersionJava@@# #@@MaxMemoryJava@@# #@@Bin@@#"
+ADQUIRNTE="#@@Client@@#"
+MODELO="#@@Modelo@@#"
+PROPERTIES="#@@Properties@@#"
 
 # First check for mandatory variable CMSAP_ROOT
 if [ "$CMSAP_ROOT" = "" ]
@@ -67,12 +66,12 @@ CMSAP_MAINLOG=${CMSAP_MAINLOG:-$CMSAP_ROOT/log/general/$PROGRAM_ID.log}
 CMSAP_OUTPUTLOG=$CMSAP_OLP/$PROGRAM_ID.log
 
 # Number of programs that can run simultaneously, default is 3
-export CMSAP_MAX_SIM_RUN=${CMSAP_MAX_SIM_RUN:=5}
-export CMSAP_DLY_BTW_RUN=${CMSAP_DLY_BTW_RUN:=1}
+export CMSAP_MAX_SIM_RUN=${CMSAP_MAX_SIM_RUN:=#@@Simultaneous@@#}
+export CMSAP_DLY_BTW_RUN=${CMSAP_DLY_BTW_RUN:=#@@Delay@@#}
 
 echo ''
 echo '======================================================================='
-echo 'Trintech Inc. (c) 2022'
+echo '© DXC Technology Company #@@Date@@#'
 echo 'Program name: ' $PROGRAM_ID
 echo 'Start Time  : ' $START_TIME
 echo '======================================================================='
@@ -194,7 +193,7 @@ else
 			# Generate the script
 			echo "Generating $XS_SCRIPT_NAME"
 			echo $PROGRAM_TO_RUN
-			f_gen_script $XS_SCRIPT_NAME "$PROGRAM_TO_RUN $ADQUIRNTE $MODELO $PROPERTIES $XS_PARAMS"
+			f_gen_script $XS_SCRIPT_NAME "$PROGRAM_TO_RUN $ADQUIRENTE $MODELO $PROPERTIES $XS_PARAMS"
 		fi
 	done
 

@@ -120,7 +120,7 @@ fi
 
 echo ''
 echo '======================================================================='
-echo 'DXC Technology. (c) 2019'
+echo '© DXC Technology Company #@@Date@@#'
 echo 'Program name: ' $PROGRAM_ID
 echo 'Start Time  : ' $START_TIME
 echo '======================================================================='

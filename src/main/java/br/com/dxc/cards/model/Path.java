@@ -7,6 +7,8 @@ public class Path extends Ambiente{
     public String basePath;
     public boolean baseHomol;
     public boolean baseCmsdev;
+    private int pathVersionJava;
+    private int maxMemoryJava;
     public Ambiente ambiente;
 
     public Path() {
@@ -50,6 +52,22 @@ public class Path extends Ambiente{
 
     public void setBaseCmsdev(boolean baseCmsdev) {
         this.baseCmsdev = baseCmsdev;
+    }
+
+    public int getPathVersionJava() {
+        return pathVersionJava;
+    }
+
+    public void setPathVersionJava(int pathVersionJava) {
+        this.pathVersionJava = pathVersionJava;
+    }
+
+    public int getMaxMemoryJava() {
+        return maxMemoryJava;
+    }
+
+    public void setMaxMemoryJava(int maxMemoryJava) {
+        this.maxMemoryJava = maxMemoryJava;
     }
 
     public Ambiente getAmbiente() {

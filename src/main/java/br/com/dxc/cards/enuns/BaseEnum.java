@@ -24,10 +24,10 @@ public enum BaseEnum {
         return baseValue;
     }
 
-    public static BaseEnum getByParameterName(String name) throws SGBException {
+    public static String getByParameterName(String name) throws SGBException {
         for (BaseEnum base : BaseEnum.values()) {
             if (base.toString().equals(name)) {
-                return base;
+                return base.getBaseValue();
             }
         }
         throw new SGBException("Nenhum base encontrada com : '" + name + "'");

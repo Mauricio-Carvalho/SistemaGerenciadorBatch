@@ -1,5 +1,7 @@
 package br.com.dxc.cards.file.reader;
 
+import br.com.dxc.cards.enuns.PathVersionJavaEnum;
+import br.com.dxc.cards.exception.SGBException;
 import br.com.dxc.cards.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -62,7 +64,46 @@ public class FileWrite {
     public static void writeFileTS(TS ts, String path) {
     }
 
-    public static void writeFileXS(XS xs, String path) {
+    public static void writeFileXS(XS xs, Path path) {
+        File templateScript = new File("src/data/XS.sh");
+        String scriptFile = "";
+
+        try {
+
+            Map<String, String> valuesMap = new HashMap<>();
+            valuesMap.put("Severity", String.valueOf(xs.getSeverity()));
+            valuesMap.put("Squad", xs.getSquad());
+            valuesMap.put("Job", xs.getJob());
+            valuesMap.put("Description", xs.getDescription());
+            valuesMap.put("Client", xs.getClient());
+            valuesMap.put("Date", xs.getDate());
+            valuesMap.put("PathVersionJava", PathVersionJavaEnum.getVersionJava(path.getPathVersionJava()));
+            valuesMap.put("MaxMemoryJava", "Xmx" + (path.getMaxMemoryJava() * 1024) + "m");
+            valuesMap.put("Bin", xs.getBin());
+            valuesMap.put("Modelo", xs.getModelo());
+            valuesMap.put("Properties", xs.getProperties());
+            valuesMap.put("Simultaneous", xs.getSimultaneous());
+            valuesMap.put("Delay", xs.getDelay());
+
+            StrSubstitutor sub = new StrSubstitutor(valuesMap,"#@@", "@@#");
+
+            Scanner sc = new Scanner(templateScript);
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                scriptFile += line + "\n";
+            }
+            sc.close();
+
+            String newScript = sub.replace(scriptFile);
+            basePathGenerate(newScript, xs.getName(), xs.getType(), path);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SGBException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void writeFileBASIC(BASIC basic, String path) {

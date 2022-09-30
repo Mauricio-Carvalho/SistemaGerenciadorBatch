@@ -41,38 +41,56 @@ public class MainApp {
         path.setCmsScriptOutput("Adquirente/Canais/Portal"); //TODO: DIRETORIO NO AMBIENTE DE HOMOLOGAÇÃO H08 PARA SHELL BASIC
         path.setBaseHomol(true); //TODO: CRIAR ARQUIVOS NO AMBIENTE DE HOMOLOGAÇÃO H08
         path.setBaseCmsdev(true); //TODO: CRIAR ARQUIVOS DIRETORIO NO CMSDEV
+        path.setPathVersionJava(8);
+        path.setMaxMemoryJava(2);
+
         ambiente = propertiesFile(path);
 
         path.setAmbiente(ambiente);
 
-        ArrayList listMSG = new ArrayList();
-        listMSG.add("TSACAPROJETOACQIOGERAEXEMPLOTEST1");
-        listMSG.add("TSACAPROJETOACQIOGERAEXEMPLOTEST2");
-
-        MS ms = new MS();
-        ms.setName("MSACAPROJETOACQIOGERAEXEMPLOTEST");
-        ms.setAp("apa_ca_portal_ep_gera_futuro_programado");
-        ms.setMsg(listMSG);
-        ms.setType("MS");
-        ms.setSeverity(1);
-        ms.setSquad("Canais Adquirente");
-        ms.setJob("br_crdu_acqr_ca_projeto_adquirente_gera_exemple_test_00000_d_c");
-        ms.setDescription("GERA ARQUIVO EXEMPLE_TEST.TXT");
-        ms.setClient("ACQIO");
-        ms.setDate("20/09/2022");
+//        ArrayList listMSG = new ArrayList();
+//        listMSG.add("TSACAPROJETOACQIOGERAEXEMPLOTEST1");
+//        listMSG.add("TSACAPROJETOACQIOGERAEXEMPLOTEST2");
+//        MS ms = new MS();
+//        ms.setName("MSACAPROJETOACQIOGERAEXEMPLOTEST");
+//        ms.setAp("apa_ca_portal_ep_gera_futuro_programado");
+//        ms.setMsg(listMSG);
+//        ms.setType("MS");
+//        ms.setSeverity(1);
+//        ms.setSquad("Canais Adquirente");
+//        ms.setJob("br_crdu_acqr_ca_projeto_adquirente_gera_exemple_test_00000_d_c");
+//        ms.setDescription("GERA ARQUIVO EXEMPLE_TEST.TXT");
+//        ms.setClient("ACQIO");
+//        ms.setDate("20/09/2022");
 
 
         AP ap = new AP();
         TS ts = new TS();
+
         XS xs = new XS();
+        xs.setName("XSACAPROJETOACQIOGERAEXEMPLOTEST");
+        xs.setType("XS");
+        xs.setSeverity(1);
+        xs.setSquad("Canais Adquirente");
+        xs.setJob("br_crdu_acqr_ca_projeto_adquirente_gera_exemple_test_00000_d_c");
+        xs.setDescription("GERA ARQUIVO EXEMPLE_TEST.TXT");
+        xs.setClient("ACQIO");
+        xs.setDate("20/09/2022");
+        xs.setBin("test-bin.jar");
+        xs.setModelo("ARQUIVOTEST");
+        xs.setProperties("test-bin.properties");
+        xs.setSimultaneous("5");
+        xs.setDelay("10");
+
+
         BASIC basic = new BASIC();
         JIL jil = new JIL();
 
         try {
 
-            switch (FileEnum.getByParameterName(ms.getType())) {
+            switch (FileEnum.getByParameterName(xs.getType())) {
                 case MS:
-                    FileWrite.writeFileMS(ms, path);
+//                    FileWrite.writeFileMS(ms, path);
                     break;
                 case AP:
 //                    FileWrite.writeFileAP(ap, Path.getCfgOutput());
@@ -81,7 +99,7 @@ public class MainApp {
 //                    FileWrite.writeFileTS(ts, Path.getCmsapOutput());
                     break;
                 case XS:
-//                    FileWrite.writeFileXS(xs, Path.getCmsapOutput());
+                    FileWrite.writeFileXS(xs, path);
                     break;
                 case BASIC:
 //                    FileWrite.writeFileBASIC();
@@ -106,12 +124,12 @@ public class MainApp {
             prop.load(fileInputStream);
 
             BaseEnum.getByParameterName(path.getBasePath());
-            String basePath = BaseEnum.valueOf(path.getBasePath()).getBaseValue();
+            String basePath = BaseEnum.getByParameterName(path.getBasePath());
 
             Ambiente ambiente = new Ambiente(); //TODO: USAR PARA DISPONIBILIZAR NO CMSDEV OU HOML
-            ambiente.setCmsdevOutput(prop.getProperty("dir.output.cmsdev").replace("{?}", path.getUser() + "/" + path.getTicket()));
-            ambiente.setCmsapOutput(prop.getProperty("dir.output.cmsap").replace("{?}", basePath.toString()));
-            ambiente.setCfgOutput(prop.getProperty("dir.output.cfg").replace("{?}", basePath.toString()));
+            ambiente.setCmsdevOutput(prop.getProperty("dir.output.cmsdev").replace("{0}", path.getUser() + "/" + path.getTicket()));
+            ambiente.setCmsapOutput(prop.getProperty("dir.output.cmsap").replace("{0}", basePath.toString()));
+            ambiente.setCfgOutput(prop.getProperty("dir.output.cfg").replace("{0}", basePath.toString()));
             ambiente.setCmsScriptOutput(prop.getProperty("dir.output.script").replace("{0}", basePath.toString()).replace("{1}", path.getCmsScriptOutput()));
 
             return ambiente;
