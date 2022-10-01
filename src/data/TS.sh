@@ -16,7 +16,6 @@
 set -x
 
 PROGRAM_TO_RUN=@@@bin@@@
-ADQUIRENTE=@@@Client@@@
 MODELO="exemple"
 PROPERTIES="/appl/CMS/cmsap/script/Adquirente/Canais/Portal/Properties/gerador_arquivos_exemple_acqio.properties"
 
@@ -170,7 +169,7 @@ else
         
         PER_START=`f_now`
         # Call the corresponding program
-        #@@PathVersionJava@@# #@@MaxMemoryJava@@# $CMSAP_BIN/$PROGRAM_TO_RUN $ADQUIRENTE $MODELO $PROPERTIES >> $CMSAP_OUTPUTLOG 2>&1
+        #@@PathVersionJava@@# #@@MaxMemoryJava@@# $CMSAP_BIN/$PROGRAM_TO_RUN $MODELO $PROPERTIES >> $CMSAP_OUTPUTLOG 2>&1
         END_STATUS=$?
         
         # Check final status

@@ -65,30 +65,55 @@ public class MainApp {
 
 
         AP ap = new AP();
-        TS ts = new TS();
 
-        XS xs = new XS();
-        xs.setName("XSACAPROJETOACQIOGERAEXEMPLOTEST");
-        xs.setType("XS");
-        xs.setSeverity(1);
-        xs.setSquad("Canais Adquirente");
-        xs.setJob("br_crdu_acqr_ca_projeto_adquirente_gera_exemple_test_00000_d_c");
-        xs.setDescription("GERA ARQUIVO EXEMPLE_TEST.TXT");
-        xs.setClient("ACQIO");
-        xs.setDate("20/09/2022");
-        xs.setBin("test-bin.jar");
-        xs.setModelo("ARQUIVOTEST");
-        xs.setProperties("test-bin.properties");
-        xs.setSimultaneous("5");
-        xs.setDelay("10");
+//        TS ts = new TS();
+//        ts.setType("TS");
+//        ts.setName("TSACAPROJETOEPGERAREXEMPLOTEST");
+//        ts.setSeverity(1);
+//        ts.setSquad("Canais Adquirente");
+//        ts.setJob("br_crdu_acqr_ca_projeto_adquirente_gerar_exemple_test_00000_d_c");
+//        ts.setDescription("GERAR ARQUIVO EXEMPLE_TEST.TXT");
+//        ts.setClient("EP");
+//        ts.setDate("30/09/2022");
+//        ts.setBin("test-bin.jar");
+//        ts.setModelo("ARQUIVOTEST");
+
+
+//        XS xs = new XS();
+//        xs.setName("XSACAPROJETOACQIOGERAEXEMPLOTEST");
+//        xs.setType("XS");
+//        xs.setSeverity(1);
+//        xs.setSquad("Canais Adquirente");
+//        xs.setJob("br_crdu_acqr_ca_projeto_adquirente_gera_exemple_test_00000_d_c");
+//        xs.setDescription("GERA ARQUIVO EXEMPLE_TEST.TXT");
+//        xs.setClient("ACQIO");
+//        xs.setDate("20/09/2022");
+//        xs.setBin("test-bin.jar");
+//        xs.setModelo("ARQUIVOTEST");
+//        xs.setProperties("test-bin.properties");
+//        xs.setSimultaneous("5");
+//        xs.setDelay("10");
 
 
         BASIC basic = new BASIC();
+        basic.setName("");
+        basic.setType("BASIC");
+        basic.setSeverity(1);
+        basic.setSquad("Canais Adquirente");
+        basic.setJob("br_crdu_acqr_ca_projeto_adquirente_gera_exemple_test_00000_d_c");
+        basic.setDescription("GERA ARQUIVO EXEMPLE_TEST.TXT");
+        basic.setClient("EP");
+        basic.setDate("30/09/2022");
+        basic.setAuthor("Bianca Antunes Passador");
+        basic.setComents("Não é fácil não kkkk");
+        basic.setTicket("CASUT-666");
+
+
         JIL jil = new JIL();
 
         try {
 
-            switch (FileEnum.getByParameterName(xs.getType())) {
+            switch (FileEnum.getByParameterName(basic.getType())) {
                 case MS:
 //                    FileWrite.writeFileMS(ms, path);
                     break;
@@ -99,7 +124,7 @@ public class MainApp {
 //                    FileWrite.writeFileTS(ts, Path.getCmsapOutput());
                     break;
                 case XS:
-                    FileWrite.writeFileXS(xs, path);
+//                    FileWrite.writeFileXS(xs, path);
                     break;
                 case BASIC:
 //                    FileWrite.writeFileBASIC();

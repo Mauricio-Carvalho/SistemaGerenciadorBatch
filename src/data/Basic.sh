@@ -2,20 +2,20 @@
 #############################################################################################################
 #DXC.technology
 #All rights reserved
-#Severity     : @@@Severity@@@
+#Severity     : #@@Severity@@#
 #Responsible  : Cards Utility
-#Squad        : @@@Squad@@@
-#JOB          : @@@Job@@@
-#Description  : @@@Description@@@
-#Client       : @@@Client@@@
+#Squad        : #@@Squad@@#
+#JOB          : #@@Job@@#
+#Description  : #@@Description@@#
+#Client       : #@@Client@@#
 #############################################################################################################
 # Changes Logs                                                                                              #
 #############################################################################################################
 #Release      : 1.0 - Initial version
-#Date         : @@@Date@@@
-#Author       : @@@Author@@@
-#Comments     : @@@Coments@@@
-#Ticket       : @@@Ticket@@@
+#Date         : #@@Date@@#
+#Author       : #@@Author@@#
+#Comments     : #@@Coments@@#
+#Ticket       : #@@Ticket@@#
 #############################################################################################################
 
 set -x

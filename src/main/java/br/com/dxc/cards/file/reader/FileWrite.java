@@ -61,7 +61,44 @@ public class FileWrite {
     public static void writeFileAP(AP ap, String path) {
     }
 
-    public static void writeFileTS(TS ts, String path) {
+    public static void writeFileTS(TS ts, Path path) {
+        File templateScript = new File("src/data/TS.sh");
+        String scriptFile = "";
+
+        try {
+
+            Map<String, String> valuesMap = new HashMap<>();
+            valuesMap.put("Severity", String.valueOf(ts.getSeverity()));
+            valuesMap.put("Squad", ts.getSquad());
+            valuesMap.put("Job", ts.getJob());
+            valuesMap.put("Description", ts.getDescription());
+            valuesMap.put("Client", ts.getClient());
+            valuesMap.put("Date", ts.getDate());
+            valuesMap.put("Bin", ts.getBin());
+            valuesMap.put("Modelo", ts.getModelo());
+            valuesMap.put("PathVersionJava", PathVersionJavaEnum.getVersionJava(path.getPathVersionJava()));
+            valuesMap.put("MaxMemoryJava", "Xmx" + (path.getMaxMemoryJava() * 1024) + "m");
+
+            StrSubstitutor sub = new StrSubstitutor(valuesMap,"#@@", "@@#");
+
+            Scanner sc = new Scanner(templateScript);
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                scriptFile += line + "\n";
+            }
+            sc.close();
+
+            String newScript = sub.replace(scriptFile);
+            basePathGenerate(newScript, ts.getName(), ts.getType(), path);
+
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SGBException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void writeFileXS(XS xs, Path path) {
@@ -106,7 +143,43 @@ public class FileWrite {
         }
     }
 
-    public static void writeFileBASIC(BASIC basic, String path) {
+    public static void writeFileBASIC(BASIC basic, Path path) {
+        File templateScript = new File("src/data/BASIC.sh");
+        String scriptFile = "";
+
+        try {
+
+            Map<String, String> valuesMap = new HashMap<>();
+            valuesMap.put("Severity", String.valueOf(basic.getSeverity()));
+            valuesMap.put("Squad", basic.getSquad());
+            valuesMap.put("Job", basic.getJob());
+            valuesMap.put("Description", basic.getDescription());
+            valuesMap.put("Client", basic.getClient());
+            valuesMap.put("Date", basic.getDate());
+            valuesMap.put("Author", basic.getAuthor());
+            valuesMap.put("Coments", basic.getComents());
+            valuesMap.put("Ticket", basic.getTicket());
+
+            StrSubstitutor sub = new StrSubstitutor(valuesMap,"#@@", "@@#");
+
+            Scanner sc = new Scanner(templateScript);
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                scriptFile += line + "\n";
+            }
+            sc.close();
+
+            String newScript = sub.replace(scriptFile);
+            basePathGenerate(newScript, basic.getName(), basic.getType(), path);
+
+
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public static void writeFileJIL(JIL jil, String path) {
