@@ -58,7 +58,40 @@ public class FileWrite {
         }
     }
 
-    public static void writeFileAP(AP ap, String path) {
+    public static void writeFileAP(AP ap, Path path) {
+        File templateScript = new File("src/data/AP.tasks");
+        String scriptFile = "";
+
+        try {
+
+            Map<String, String> valuesMap = new HashMap<>();
+            valuesMap.put("Name", ap.getName());
+            for (int i = 0; i < ap.getMsg().size(); i++){
+                valuesMap.put("AP" + i + "", ap.getMsg().get(i));
+            }
+
+            StrSubstitutor sub = new StrSubstitutor(valuesMap,"#@@", "@@#");
+
+            Scanner sc = new Scanner(templateScript);
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                if (line.contains("S100 # S200 # ABORT # ksh -c '${CMSAP_ROOT}/#@@TS0@@#'") && (ap.getMsg().size() > 1)) {
+                    for (int i = 0; i < ap.getMsg().size(); i++) {
+                        scriptFile += "S100 # S200 # ABORT # ksh -c '${CMSAP_ROOT}/#@@TS" + i + "@@#'\n";
+                    }
+                } else {
+                    scriptFile += line + "\n";
+                }
+            }
+            sc.close();
+
+            String newScript = sub.replace(scriptFile);
+            basePathGenerate(newScript, ap.getName(), ap.getType(), path);
+
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void writeFileTS(TS ts, Path path) {

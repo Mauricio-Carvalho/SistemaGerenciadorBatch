@@ -100,4 +100,20 @@ public class BASIC {
     public void setTicket(String ticket) {
         this.ticket = ticket;
     }
+
+    @Override
+    public String toString() {
+        return "BASIC {" +
+                "  severity=" + severity +
+                ", squad='" + squad + '\'' +
+                ", job='" + job + '\'' +
+                ", description='" + description + '\'' +
+                ", client='" + client + '\'' +
+                ", date=" + date +
+                ", author=" + author +
+                ", coments=" + coments +
+                ", ticket=" + ticket +
+                '}';
+    }
+
 }

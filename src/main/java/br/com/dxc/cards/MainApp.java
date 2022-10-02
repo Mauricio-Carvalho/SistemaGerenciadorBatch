@@ -65,6 +65,13 @@ public class MainApp {
 
 
         AP ap = new AP();
+        ArrayList listMSG = new ArrayList();
+        listMSG.add("TSACAPROJETOEPGERAREXEMPLOTEST1");
+        listMSG.add("TSACAPROJETOEPGERAREXEMPLOTEST2");
+        ap.setName("apa_ep_gerar_teste");
+        ap.setMsg(listMSG);
+        ap.setType("AP");
+
 
 //        TS ts = new TS();
 //        ts.setType("TS");
@@ -95,25 +102,25 @@ public class MainApp {
 //        xs.setDelay("10");
 
 
-        BASIC basic = new BASIC();
-        basic.setName("");
-        basic.setType("BASIC");
-        basic.setSeverity(1);
-        basic.setSquad("Canais Adquirente");
-        basic.setJob("br_crdu_acqr_ca_projeto_adquirente_gera_exemple_test_00000_d_c");
-        basic.setDescription("GERA ARQUIVO EXEMPLE_TEST.TXT");
-        basic.setClient("EP");
-        basic.setDate("30/09/2022");
-        basic.setAuthor("Bianca Antunes Passador");
-        basic.setComents("Não é fácil não kkkk");
-        basic.setTicket("CASUT-666");
+//        BASIC basic = new BASIC();
+//        basic.setName("");
+//        basic.setType("BASIC");
+//        basic.setSeverity(1);
+//        basic.setSquad("Canais Adquirente");
+//        basic.setJob("br_crdu_acqr_ca_projeto_adquirente_gera_exemple_test_00000_d_c");
+//        basic.setDescription("GERA ARQUIVO EXEMPLE_TEST.TXT");
+//        basic.setClient("EP");
+//        basic.setDate("30/09/2022");
+//        basic.setAuthor("Bianca Antunes Passador");
+//        basic.setComents("Não é fácil não kkkk");
+//        basic.setTicket("CASUT-666");
 
 
         JIL jil = new JIL();
 
         try {
 
-            switch (FileEnum.getByParameterName(basic.getType())) {
+            switch (FileEnum.getByParameterName(ap.getType())) {
                 case MS:
 //                    FileWrite.writeFileMS(ms, path);
                     break;
