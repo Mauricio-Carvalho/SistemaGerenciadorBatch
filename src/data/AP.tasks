@@ -2,19 +2,7 @@
 #--> this is just to clarify if is in INIT or CHECKing params.
 INIT # S100 # ABORT # exit 0
 #
-S100 # S200 # ABORT # ksh -c "${CMSAP_ROOT}/#@@TS0@@#"
-#
-S200 # S300 # ABORT # ksh -c "${CMSAP_ROOT}/TSA0049L.sh"
-#
-S300 # S340 # ABORT # ksh -c "${CMSAP_ROOT}/TSAPE0085.sh"
-#
-S340 # S360 # ABORT # ksh -c "${CMSAP_ROOT}/XSAP0224.sh"
-#
-S360 # S380 # ABORT # ksh -c "${CMSAP_ROOT}/TSAP0218C.sh"
-#
-S380 # S390 # ABORT # ksh -c "${CMSAP_ROOT}/TSAP0218D.sh"
-#
-S390 # S900 # ABORT # ksh -c "${CMSAP_ROOT}/TSA0049L.sh"
+S100 # S900 # ABORT # ksh -c "${CMSAP_ROOT}/#@@TS0@@#"
 #
 S900 # END # ABORT # exit 0
 #

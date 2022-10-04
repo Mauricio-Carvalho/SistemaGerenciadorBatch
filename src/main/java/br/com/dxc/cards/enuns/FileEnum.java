@@ -3,24 +3,39 @@ package br.com.dxc.cards.enuns;
 import br.com.dxc.cards.exception.SGBException;
 
 public enum FileEnum {
-    MS("MS"),
-    AP("AP"),
-    TS("TS"),
-    XS("XS"),
-    BASIC("BASIC"),
-    JIL("JIL");
+    MS("MS", ".sh"),
+    AP("AP", ".tasks"),
+    TS("TS", ".sh"),
+    XS("XS", ".sh"),
+    BASIC("BASIC", ".sh"),
+    JIL("JIL", ".sh");
 
     private String file;
+    private String extension;
 
-    FileEnum(String file) {
+    FileEnum(String file, String extension) {
         this.file = file;
+        this.extension = extension;
     }
 
     public String getFile() {
         return file;
     }
 
-    public static FileEnum getByParameterName(String name) throws SGBException {
+    public String getExtension() {
+        return extension;
+    }
+
+    public static String getFileExtension(String type) throws SGBException {
+        for (FileEnum file : FileEnum.values()) {
+            if (file.toString().equals(type)) {
+                return file.getExtension();
+            }
+        }
+        throw new SGBException("Nenhum arquivo encontrada com a sigla: '" + type + "'");
+    }
+
+    public static FileEnum getTypeFile(String name) throws SGBException {
         for (FileEnum file : FileEnum.values()) {
             if (file.toString().equals(name)) {
                 return file;

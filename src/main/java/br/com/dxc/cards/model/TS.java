@@ -11,6 +11,7 @@ public class TS {
     private String date;
     private String bin;
     private String modelo;
+    private String properties;
 
     public String getType() {
         return type;
@@ -90,6 +91,14 @@ public class TS {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    public String getProperties() {
+        return properties;
+    }
+
+    public void setProperties(String properties) {
+        this.properties = properties;
     }
 
     @Override

@@ -4,20 +4,21 @@
 ########################################################################
 #DXC.technology
 #All rights reserved
-#Severity     : @@@Severity@@@
+#Severity     : #@@Severity@@#
 #Responsible  : Cards Utility
-#Squad        : @@@Squad@@@
-#JOB          : @@@Job@@@
-#Description  : @@@Description@@@
-#Client       : @@@Client@@@
-#Date         : @@@Date@@@
+#Squad        : #@@Squad@@#
+#JOB          : #@@Job@@#
+#Description  : #@@Description@@#
+#Client       : #@@Client@@#
+#Date         : #@@Date@@#
 ########################################################################
 
 set -x
 
-PROGRAM_TO_RUN=@@@bin@@@
-MODELO="exemple"
-PROPERTIES="/appl/CMS/cmsap/script/Adquirente/Canais/Portal/Properties/gerador_arquivos_exemple_acqio.properties"
+PROGRAM_TO_RUN="#@@Bin@@#"
+ADQUIRNTE="#@@Client@@#"
+MODELO="#@@Modelo@@#"
+PROPERTIES="#@@Properties@@#"
 
 
 # First check for mandatory variable CMSAP_ROOT
@@ -169,7 +170,7 @@ else
         
         PER_START=`f_now`
         # Call the corresponding program
-        #@@PathVersionJava@@# #@@MaxMemoryJava@@# $CMSAP_BIN/$PROGRAM_TO_RUN $MODELO $PROPERTIES >> $CMSAP_OUTPUTLOG 2>&1
+        #@@PathVersionJava@@# #@@MaxMemoryJava@@# $CMSAP_BIN/$PROGRAM_TO_RUN $ADQUIRNTE $MODELO $PROPERTIES >> $CMSAP_OUTPUTLOG 2>&1
         END_STATUS=$?
         
         # Check final status

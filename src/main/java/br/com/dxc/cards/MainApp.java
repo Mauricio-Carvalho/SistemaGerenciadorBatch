@@ -25,6 +25,7 @@ public class MainApp {
      */
 //    TODO: CRIAR UMA FLAG PARA DISPARAR UM EMAIL COM OS ITENS NO PACOTE SEMANAL, CRIANDO O DIRETORIO DE ENTREGA NO CMSDEV
 //    TODO: CRIAR UMA TABLE PARA REGISTRAR TODA SOLICITAÇÃO (NOME DO JOB, USER, CASUT, DATA)
+//    TODO: SUGERIR ENVIO DE CRIAÇÃO DE VIEW DO AUTOSYS PARA PROD
 
     public static void main(String... args) throws Exception {
 
@@ -64,26 +65,27 @@ public class MainApp {
 //        ms.setDate("20/09/2022");
 
 
-        AP ap = new AP();
-        ArrayList listMSG = new ArrayList();
-        listMSG.add("TSACAPROJETOEPGERAREXEMPLOTEST1");
-        listMSG.add("TSACAPROJETOEPGERAREXEMPLOTEST2");
-        ap.setName("apa_ep_gerar_teste");
-        ap.setMsg(listMSG);
-        ap.setType("AP");
+//        AP ap = new AP();
+//        ArrayList listMSG = new ArrayList();
+//        listMSG.add("TSACAPROJETOEPGERAREXEMPLOTEST1");
+//        listMSG.add("TSACAPROJETOEPGERAREXEMPLOTEST2");
+//        ap.setName("apa_ep_gerar_teste");
+//        ap.setMsg(listMSG);
+//        ap.setType("AP");
 
 
-//        TS ts = new TS();
-//        ts.setType("TS");
-//        ts.setName("TSACAPROJETOEPGERAREXEMPLOTEST");
-//        ts.setSeverity(1);
-//        ts.setSquad("Canais Adquirente");
-//        ts.setJob("br_crdu_acqr_ca_projeto_adquirente_gerar_exemple_test_00000_d_c");
-//        ts.setDescription("GERAR ARQUIVO EXEMPLE_TEST.TXT");
-//        ts.setClient("EP");
-//        ts.setDate("30/09/2022");
-//        ts.setBin("test-bin.jar");
-//        ts.setModelo("ARQUIVOTEST");
+        TS ts = new TS();
+        ts.setType("TS");
+        ts.setName("TSACAPROJETOEPGERAREXEMPLOTEST");
+        ts.setSeverity(1);
+        ts.setSquad("Canais Adquirente");
+        ts.setJob("br_crdu_acqr_ca_projeto_adquirente_gerar_exemple_test_00000_d_c");
+        ts.setDescription("GERAR ARQUIVO EXEMPLE_TEST.TXT");
+        ts.setClient("EP");
+        ts.setDate("30/09/2022");
+        ts.setBin("test-bin.jar");
+        ts.setModelo("ARQUIVOTEST");
+        ts.setProperties("test-bin.properties");
 
 
 //        XS xs = new XS();
@@ -120,15 +122,15 @@ public class MainApp {
 
         try {
 
-            switch (FileEnum.getByParameterName(ap.getType())) {
+            switch (FileEnum.getTypeFile(ts.getType())) {
                 case MS:
 //                    FileWrite.writeFileMS(ms, path);
                     break;
                 case AP:
-//                    FileWrite.writeFileAP(ap, Path.getCfgOutput());
+//                    FileWrite.writeFileAP(ap, path);
                     break;
                 case TS:
-//                    FileWrite.writeFileTS(ts, Path.getCmsapOutput());
+                    FileWrite.writeFileTS(ts, path);
                     break;
                 case XS:
 //                    FileWrite.writeFileXS(xs, path);

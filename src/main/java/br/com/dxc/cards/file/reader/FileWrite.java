@@ -1,11 +1,13 @@
 package br.com.dxc.cards.file.reader;
 
+import br.com.dxc.cards.enuns.FileEnum;
 import br.com.dxc.cards.enuns.PathVersionJavaEnum;
 import br.com.dxc.cards.exception.SGBException;
 import br.com.dxc.cards.model.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.lookup.StrSubstitutor;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.core.lookup.StrSubstitutor;
 
 import java.io.*;
 import java.util.HashMap;
@@ -14,7 +16,7 @@ import java.util.Scanner;
 
 public class FileWrite {
 
-    private static final Logger LOGGER = LogManager.getLogger(FileWrite.class);
+//    private static final Logger LOGGER = LogManager.getLogger(FileWrite.class);
 
     public static void writeFileMS(MS ms, Path path) throws IOException {
         File templateScript = new File("src/data/MS.sh");
@@ -53,7 +55,7 @@ public class FileWrite {
             String newScript = sub.replace(scriptFile);
             basePathGenerate(newScript, ms.getName(), ms.getType(), path);
 
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | SGBException e) {
             e.printStackTrace();
         }
     }
@@ -61,13 +63,15 @@ public class FileWrite {
     public static void writeFileAP(AP ap, Path path) {
         File templateScript = new File("src/data/AP.tasks");
         String scriptFile = "";
+        int orderInit = 100;
+        int orderEnd = 200;
 
         try {
 
             Map<String, String> valuesMap = new HashMap<>();
             valuesMap.put("Name", ap.getName());
             for (int i = 0; i < ap.getMsg().size(); i++){
-                valuesMap.put("AP" + i + "", ap.getMsg().get(i));
+                valuesMap.put("TS" + i + "", ap.getMsg().get(i));
             }
 
             StrSubstitutor sub = new StrSubstitutor(valuesMap,"#@@", "@@#");
@@ -75,10 +79,15 @@ public class FileWrite {
             Scanner sc = new Scanner(templateScript);
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                if (line.contains("S100 # S200 # ABORT # ksh -c '${CMSAP_ROOT}/#@@TS0@@#'") && (ap.getMsg().size() > 1)) {
+                if (line.contains("S100 # S900 # ABORT # ksh -c \"${CMSAP_ROOT}/#@@TS0@@#\"") && (ap.getMsg().size() > 1)) {
                     for (int i = 0; i < ap.getMsg().size(); i++) {
-                        scriptFile += "S100 # S200 # ABORT # ksh -c '${CMSAP_ROOT}/#@@TS" + i + "@@#'\n";
+                        scriptFile += "S" + orderInit + " # S" + orderEnd + " # ABORT # ksh -c \"${CMSAP_ROOT}/#@@TS" + i + "@@#\"\n";
+                        scriptFile += "#\n";
+                        orderInit += 100;
+                        orderEnd += 100;
                     }
+                } else if (line.contains("S900 # END # ABORT # exit 0")){
+                    scriptFile += "S" + orderInit + " # END # ABORT # exit 0";
                 } else {
                     scriptFile += line + "\n";
                 }
@@ -91,6 +100,8 @@ public class FileWrite {
         }catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SGBException e) {
             e.printStackTrace();
         }
 
@@ -111,6 +122,7 @@ public class FileWrite {
             valuesMap.put("Date", ts.getDate());
             valuesMap.put("Bin", ts.getBin());
             valuesMap.put("Modelo", ts.getModelo());
+            valuesMap.put("Properties", ts.getProperties());
             valuesMap.put("PathVersionJava", PathVersionJavaEnum.getVersionJava(path.getPathVersionJava()));
             valuesMap.put("MaxMemoryJava", "Xmx" + (path.getMaxMemoryJava() * 1024) + "m");
 
@@ -212,6 +224,8 @@ public class FileWrite {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SGBException e) {
+            e.printStackTrace();
         }
 
 
@@ -220,27 +234,28 @@ public class FileWrite {
     public static void writeFileJIL(JIL jil, String path) {
     }
 
-    private static void basePathGenerate(String newScript, String name, String type, Path path) throws IOException {
+    private static void basePathGenerate(String newScript, String name, String type, Path path) throws IOException, SGBException {
 
         if (path.isBaseCmsdev()) {
-            fileGenerate(newScript, name, path.getAmbiente().getCmsdevOutput());
+            fileGenerate(newScript, name, path.getAmbiente().getCmsdevOutput(), FileEnum.getFileExtension(type));
         }
 
         if (path.isBaseHomol()) {
             if (type.equals("MS") || type.equals("TS") || type.equals("XS")) {
-                fileGenerate(newScript, name, path.getAmbiente().getCmsapOutput());
+                fileGenerate(newScript, name, path.getAmbiente().getCmsapOutput(), FileEnum.getFileExtension(type));
             }
-            else if (type.equals("ap")){
-                fileGenerate(newScript, name, path.getAmbiente().getCmsapOutput());
+            else if (type.equals("AP")){
+                fileGenerate(newScript, name, path.getAmbiente().getCmsapOutput(), FileEnum.AP.getExtension());
             }else {
-                fileGenerate(newScript, name, path.getAmbiente().getCmsScriptOutput());
+                fileGenerate(newScript, name, path.getAmbiente().getCmsScriptOutput(), FileEnum.AP.getExtension());
             }
         }
 
     }
 
-    private static void fileGenerate(String newScript, String name, String path) throws IOException {
-        File fileGenerate = new File("C:\\GitHub\\SistemaGerenciadorBatch\\src\\data\\" + name.replaceAll("\\s", "") + ".sh"); //TODO: RODAR NA MAQUINA
+    private static void fileGenerate(String newScript, String name, String path, String extension) throws IOException {
+
+        File fileGenerate = new File("C:\\GitHub\\SistemaGerenciadorBatch\\src\\data\\" + name.replaceAll("\\s", "") + extension); //TODO: RODAR NA MAQUINA
 //        File fileGenerate = new File(path + name.replaceAll("\\s", "") + ".sh");
         if (!fileGenerate.exists()) {
             fileGenerate.createNewFile();
