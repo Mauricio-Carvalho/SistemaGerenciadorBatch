@@ -124,7 +124,7 @@ else
   logdata "LISTA DE ARQUIVOS:"
 fi
 
-for V_ARQ in ${V_LISTA_ARQUIVOS[@]}
+for V_ARQ in ${#V_LISTA_ARQUIVOS[@]}
 do
 	logdata "${V_ARQ}"
 done
@@ -135,7 +135,7 @@ logdata ""
 logdata "REALIZANDO BACKUP E MOVENDO PARA O DIRETORIO DESTINO"
 logdata ""
 
-for V_ARQ in ${V_LISTA_ARQUIVOS[@]}
+for V_ARQ in ${#V_LISTA_ARQUIVOS[@]}
 do
 
   logdata "${V_ARQ}"

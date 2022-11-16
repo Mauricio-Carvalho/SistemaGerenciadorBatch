@@ -1,9 +1,9 @@
 package br.com.dxc.cards.model;
 
-public class TS {
+public class TS extends Severity{
     private String type;
     private String name;
-    private int severity;
+    private Severity severity;
     private String squad;
     private String job;
     private String description;
@@ -29,11 +29,11 @@ public class TS {
         this.name = name;
     }
 
-    public int getSeverity() {
+    public Severity getSeverity() {
         return severity;
     }
 
-    public void setSeverity(int severity) {
+    public void setSeverity(Severity severity) {
         this.severity = severity;
     }
 

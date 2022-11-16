@@ -1,4 +1,4 @@
-#@@Name@@#
+##@@Name@@#
 #--> this is just to clarify if is in INIT or CHECKing params.
 INIT # S100 # ABORT # exit 0
 #

@@ -1,9 +1,12 @@
 package br.com.dxc.cards.file.reader;
 
+import br.com.dxc.cards.MainApp;
 import br.com.dxc.cards.enuns.FileEnum;
 import br.com.dxc.cards.enuns.PathVersionJavaEnum;
 import br.com.dxc.cards.exception.SGBException;
 import br.com.dxc.cards.model.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.lookup.StrSubstitutor;
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
@@ -15,8 +18,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class FileWrite {
-
-//    private static final Logger LOGGER = LogManager.getLogger(FileWrite.class);
+    private static final Logger LOGGER = LogManager.getLogger(FileWrite.class);
 
     public static void writeFileMS(MS ms, Path path) throws IOException {
         File templateScript = new File("src/data/MS.sh");
@@ -108,6 +110,7 @@ public class FileWrite {
     }
 
     public static void writeFileTS(TS ts, Path path) {
+        LOGGER.info("Inicio - " + ts.getName());
         File templateScript = new File("src/data/TS.sh");
         String scriptFile = "";
 
@@ -219,7 +222,6 @@ public class FileWrite {
             String newScript = sub.replace(scriptFile);
             basePathGenerate(newScript, basic.getName(), basic.getType(), path);
 
-
         } catch (FileNotFoundException e){
             e.printStackTrace();
         } catch (IOException e) {
@@ -228,10 +230,79 @@ public class FileWrite {
             e.printStackTrace();
         }
 
-
     }
 
-    public static void writeFileJIL(JIL jil, String path) {
+    public static void writeFileJIL(JIL jil, Path path) {
+
+        try {
+
+            Map<String, String> valuesMap = new HashMap<>();
+
+            valuesMap.put("insert_job: ", String.valueOf());
+            valuesMap.put("job_type: ", String.valueOf());
+            valuesMap.put("description: ", String.valueOf());
+            valuesMap.put("machine: ", String.valueOf());
+            valuesMap.put("owner: ", String.valueOf());
+            valuesMap.put("application: ", String.valueOf());
+
+            if (jil.getBoxName().isEmpty() || jil.getBoxName() != null){
+            valuesMap.put("box_name: ", String.valueOf());
+
+            }
+
+            if (!jil.getCalendar().isEmpty() || jil.getCondition() != null){
+                valuesMap.put("condition: ", String.valueOf(jil.getCondition()));
+
+            }
+
+            if (jil.isDateCondition()) {
+                valuesMap.put("date_conditions: ", String.valueOf());
+                valuesMap.put("timezone: ", String.valueOf());
+                valuesMap.put("days_of_week: ", String.valueOf());
+                valuesMap.put("start_mins: ", String.valueOf());
+                valuesMap.put("calendar: ", String.valueOf());
+
+            }
+
+            if (jil.getTypeJob().equals("cmd") || jil.getTypeJob().equals("fw")){
+                valuesMap.put("permission: ", String.valueOf());
+                valuesMap.put("max_run_alarm: ", String.valueOf());
+                valuesMap.put("alarm_if_fail: ", String.valueOf());
+                valuesMap.put("alarm_if_terminated: ", String.valueOf());
+                valuesMap.put("send_notification: ", String.valueOf());
+                valuesMap.put("notification_msg: ", String.valueOf());
+                valuesMap.put("notification_emailaddress: ", String.valueOf());
+                valuesMap.put("svcdesk_desc: ", String.valueOf());
+                valuesMap.put("svcdesk_attr: ", String.valueOf());
+                valuesMap.put("svcdesk_sev: ", String.valueOf());
+
+            }
+
+            if (jil.getTypeJob().equals("cmd")) {
+                valuesMap.put("std_out_file: ", String.valueOf());
+                valuesMap.put("std_err_file: ", String.valueOf());
+                valuesMap.put("command: ", String.valueOf());
+
+            }
+
+            if (jil.getTypeJob().equals("FileWatcher")) {
+                valuesMap.put("watch_file: ", String.valueOf());
+                valuesMap.put("watch_file_min_size: ", String.valueOf());
+                valuesMap.put("watch_interval: ", String.valueOf());
+
+            }
+
+            String newScript;
+            basePathGenerate(newScript, xs.getName(), xs.getType(), path);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SGBException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private static void basePathGenerate(String newScript, String name, String type, Path path) throws IOException, SGBException {
@@ -243,8 +314,7 @@ public class FileWrite {
         if (path.isBaseHomol()) {
             if (type.equals("MS") || type.equals("TS") || type.equals("XS")) {
                 fileGenerate(newScript, name, path.getAmbiente().getCmsapOutput(), FileEnum.getFileExtension(type));
-            }
-            else if (type.equals("AP")){
+            }else if (type.equals("AP")){
                 fileGenerate(newScript, name, path.getAmbiente().getCmsapOutput(), FileEnum.AP.getExtension());
             }else {
                 fileGenerate(newScript, name, path.getAmbiente().getCmsScriptOutput(), FileEnum.AP.getExtension());
