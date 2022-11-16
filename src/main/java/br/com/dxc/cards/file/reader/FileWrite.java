@@ -285,7 +285,7 @@ public class FileWrite {
 
             }
 
-            if (jil.getTypeJob().equals("FileWatcher")) {
+            if (jil.getTypeJob().equals("fw")) {
                 valuesMap.put("watch_file: ", String.valueOf());
                 valuesMap.put("watch_file_min_size: ", String.valueOf());
                 valuesMap.put("watch_interval: ", String.valueOf());
