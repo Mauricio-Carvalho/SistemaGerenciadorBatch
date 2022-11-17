@@ -10,6 +10,7 @@ public class JIL {
     private String name;
     private String typeJob;
     private String description;
+    private String machine;
     private String owner;
     private String application;
 
@@ -26,6 +27,7 @@ public class JIL {
     private String permission;
     private String maxRunAlarm;
     private String alarmFail;
+    private String alarmTerminated;
     private String sendNotification;
     private String msgNotification;
     private String emailNotification;
@@ -75,6 +77,14 @@ public class JIL {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getMachine() {
+        return machine;
+    }
+
+    public void setMachine(String machine) {
+        this.machine = machine;
     }
 
     public String getCondition() {
@@ -171,6 +181,14 @@ public class JIL {
 
     public void setAlarmFail(String alarmFail) {
         this.alarmFail = alarmFail;
+    }
+
+    public String getAlarmTerminated() {
+        return alarmTerminated;
+    }
+
+    public void setAlarmTerminated(String alarmTerminated) {
+        this.alarmTerminated = alarmTerminated;
     }
 
     public String getSendNotification() {

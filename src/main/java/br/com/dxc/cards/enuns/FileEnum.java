@@ -8,7 +8,7 @@ public enum FileEnum {
     TS("TS", ".sh"),
     XS("XS", ".sh"),
     BASIC("BASIC", ".sh"),
-    JIL("JIL", ".sh");
+    JIL("JIL", ".txt");
 
     private String file;
     private String extension;

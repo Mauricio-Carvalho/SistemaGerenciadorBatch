@@ -233,67 +233,80 @@ public class FileWrite {
     }
 
     public static void writeFileJIL(JIL jil, Path path) {
+        String newScript = "";
 
         try {
 
             Map<String, String> valuesMap = new HashMap<>();
 
-            valuesMap.put("insert_job: ", String.valueOf());
-            valuesMap.put("job_type: ", String.valueOf());
-            valuesMap.put("description: ", String.valueOf());
-            valuesMap.put("machine: ", String.valueOf());
-            valuesMap.put("owner: ", String.valueOf());
-            valuesMap.put("application: ", String.valueOf());
+            valuesMap.put("insert_job", String.valueOf(jil.getName()));
+            valuesMap.put("job_type", String.valueOf(jil.getTypeJob()));
+            valuesMap.put("description", String.valueOf(jil.getDescription()));
 
-            if (jil.getBoxName().isEmpty() || jil.getBoxName() != null){
-            valuesMap.put("box_name: ", String.valueOf());
+            if (jil.getTypeJob().equals("cmd") || jil.getTypeJob().equals("fw")) {
+                valuesMap.put("machine", String.valueOf(jil.getMachine()));
+                valuesMap.put("owner", String.valueOf(jil.getOwner()));
 
             }
 
-            if (!jil.getCalendar().isEmpty() || jil.getCondition() != null){
-                valuesMap.put("condition: ", String.valueOf(jil.getCondition()));
+            valuesMap.put("application", String.valueOf(jil.getApplication()));
 
-            }
-
-            if (jil.isDateCondition()) {
-                valuesMap.put("date_conditions: ", String.valueOf());
-                valuesMap.put("timezone: ", String.valueOf());
-                valuesMap.put("days_of_week: ", String.valueOf());
-                valuesMap.put("start_mins: ", String.valueOf());
-                valuesMap.put("calendar: ", String.valueOf());
-
-            }
-
-            if (jil.getTypeJob().equals("cmd") || jil.getTypeJob().equals("fw")){
-                valuesMap.put("permission: ", String.valueOf());
-                valuesMap.put("max_run_alarm: ", String.valueOf());
-                valuesMap.put("alarm_if_fail: ", String.valueOf());
-                valuesMap.put("alarm_if_terminated: ", String.valueOf());
-                valuesMap.put("send_notification: ", String.valueOf());
-                valuesMap.put("notification_msg: ", String.valueOf());
-                valuesMap.put("notification_emailaddress: ", String.valueOf());
-                valuesMap.put("svcdesk_desc: ", String.valueOf());
-                valuesMap.put("svcdesk_attr: ", String.valueOf());
-                valuesMap.put("svcdesk_sev: ", String.valueOf());
-
-            }
+//            if (jil.getBoxName().isEmpty() || jil.getBoxName() != null){
+//            valuesMap.put("box_name", String.valueOf(jil.getBoxName()));
+//
+//            }
+//
+//            if (!jil.getCondition().isEmpty() || jil.getCondition() != null){
+//                valuesMap.put("condition", String.valueOf(jil.getCondition()));
+//
+//            }
+//
+//            if (!jil.getCalendar().isEmpty() || jil.getCalendar() != null){
+//                valuesMap.put("calendar", String.valueOf(jil.getCalendar()));
+//
+//            }
+//
+//            if (jil.isDateCondition()) {
+//                valuesMap.put("date_conditions", "yes");
+//                valuesMap.put("timezone", String.valueOf(jil.getTimeZone()));
+//                valuesMap.put("days_of_week", String.valueOf(jil.getDayWeek()));
+//                valuesMap.put("start_mins", String.valueOf(jil.getStartMinute()));
+//
+//            }
+//
+//            if (jil.getTypeJob().equals("cmd") || jil.getTypeJob().equals("fw")){
+//                valuesMap.put("permission", String.valueOf(jil.getPermission()));
+//                valuesMap.put("max_run_alarm", String.valueOf(jil.getMaxRunAlarm()));
+//                valuesMap.put("alarm_if_fail", String.valueOf(jil.getAlarmFail()));
+//                valuesMap.put("alarm_if_terminated", String.valueOf(jil.getAlarmTerminated()));
+//                valuesMap.put("send_notification", String.valueOf(jil.getSendNotification()));
+//                valuesMap.put("notification_msg", String.valueOf(jil.getMsgNotification()));
+//                valuesMap.put("notification_emailaddress", String.valueOf(jil.getEmailNotification()));
+//                valuesMap.put("svcdesk_desc", String.valueOf(jil.getSvcDesc()));
+//                valuesMap.put("svcdesk_attr", String.valueOf(jil.getSvcAttr()));
+//                valuesMap.put("svcdesk_sev", String.valueOf(jil.getSvcSev()));
+//
+//            }
 
             if (jil.getTypeJob().equals("cmd")) {
-                valuesMap.put("std_out_file: ", String.valueOf());
-                valuesMap.put("std_err_file: ", String.valueOf());
-                valuesMap.put("command: ", String.valueOf());
+//                valuesMap.put("std_out_file", String.valueOf(jil.);
+//                valuesMap.put("std_err_file", String.valueOf());
+//                valuesMap.put("command", String.valueOf());
 
             }
 
             if (jil.getTypeJob().equals("fw")) {
-                valuesMap.put("watch_file: ", String.valueOf());
-                valuesMap.put("watch_file_min_size: ", String.valueOf());
-                valuesMap.put("watch_interval: ", String.valueOf());
+//                valuesMap.put("watch_file", String.valueOf());
+//                valuesMap.put("watch_file_min_size", String.valueOf());
+//                valuesMap.put("watch_interval", String.valueOf());
 
             }
 
-            String newScript;
-            basePathGenerate(newScript, xs.getName(), xs.getType(), path);
+            for (String key : valuesMap.keySet()) {
+                newScript += key + " : " + valuesMap.get(key) + "\n";
+            }
+
+            basePathGenerate(newScript, "JIL", jil.getType(), path);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

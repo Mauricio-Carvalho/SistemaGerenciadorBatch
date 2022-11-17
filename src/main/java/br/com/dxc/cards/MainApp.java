@@ -76,6 +76,7 @@ public class MainApp {
 //        ms.setDescription("GERA ARQUIVO EXEMPLE_TEST.TXT");
 //        ms.setClient("ACQIO");
 //        ms.setDate("20/09/2022");
+//--------------------------------------------------------------------------------------------
 
 
 //        AP ap = new AP();
@@ -85,7 +86,7 @@ public class MainApp {
 //        ap.setName("apa_ep_gerar_teste");
 //        ap.setMsg(listMSG);
 //        ap.setType("AP");
-
+//--------------------------------------------------------------------------------------------
 
 
 //        TS ts = new TS();
@@ -106,6 +107,7 @@ public class MainApp {
 //        ts.setBin("test-bin.jar");
 //        ts.setModelo("ARQUIVOTEST");
 //        ts.setProperties("test-bin.properties");
+//--------------------------------------------------------------------------------------------
 
 
 //        XS xs = new XS();
@@ -128,6 +130,7 @@ public class MainApp {
 //        xs.setProperties("test-bin.properties");
 //        xs.setSimultaneous("5");
 //        xs.setDelay("10");
+//--------------------------------------------------------------------------------------------
 
 
 //        BASIC basic = new BASIC();
@@ -148,7 +151,7 @@ public class MainApp {
 //        basic.setAuthor("Bianca Antunes Passador");
 //        basic.setComents("Não é fácil não kkkk");
 //        basic.setTicket("CASUT-666");
-
+//--------------------------------------------------------------------------------------------
 
         FileWatch fileWatcher = new FileWatch(
                 "JIL",
